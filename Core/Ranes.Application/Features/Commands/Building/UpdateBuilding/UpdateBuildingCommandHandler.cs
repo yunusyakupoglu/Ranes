@@ -27,40 +27,12 @@ namespace Ranes.Application.Features.Commands.Building.UpdateBuilding
 
         public async Task<Response<UpdateBuildingCommandResponse>> Handle(UpdateBuildingCommandRequest request, CancellationToken cancellationToken)
         {
-            FileModel files = new FileModel
-            {
-                ImgPrimary = request.ImgPrimary,
-                ImgOne = request.ImgOne,
-                ImgTwo = request.ImgTwo,
-                ImgThree = request.ImgThree,
-                ImgFour = request.ImgFour,
-                ImgFive = request.ImgFive,
-                ImgSix = request.ImgSix,
-                ImgSeven = request.ImgSeven,
-                ImgEight = request.ImgEight,
-                ImgNine = request.ImgNine,
-                ImgTen = request.ImgTen
-            };
-
-            var fileNames = await _fileService.Upload(files);
-
             var isThereBuildingRecord = await _readRepository.GetSingleAsync(x => x.Id == request.Id);
             isThereBuildingRecord.UpdatedBy = request.UpdatedBy;
             isThereBuildingRecord.UpdatedDate = DateTime.UtcNow;
             isThereBuildingRecord.Title = request.Title;
             isThereBuildingRecord.Description = request.Description;
             isThereBuildingRecord.m2 = request.m2;
-            isThereBuildingRecord.ImgPrimary = fileNames.ImgPrimaryPath;
-            isThereBuildingRecord.ImgOne = fileNames.ImgOnePath;
-            isThereBuildingRecord.ImgTwo = fileNames.ImgTwoPath;
-            isThereBuildingRecord.ImgThree = fileNames.ImgThreePath;
-            isThereBuildingRecord.ImgFour = fileNames.ImgFourPath;
-            isThereBuildingRecord.ImgFive = fileNames.ImgFivePath;
-            isThereBuildingRecord.ImgSix = fileNames.ImgSixPath;
-            isThereBuildingRecord.ImgSeven = fileNames.ImgSevenPath;
-            isThereBuildingRecord.ImgEight = fileNames.ImgEightPath;
-            isThereBuildingRecord.ImgNine = fileNames.ImgNinePath;
-            isThereBuildingRecord.ImgTen = fileNames.ImgTenPath;
             isThereBuildingRecord.CategoryId = request.CategoryId;
             isThereBuildingRecord.Investment = request.Investment;
             isThereBuildingRecord.CompletedProject = request.CompletedProject;

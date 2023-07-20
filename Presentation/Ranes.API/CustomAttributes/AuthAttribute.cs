@@ -25,6 +25,7 @@ namespace Ranes.API.CustomAttributes
                 { PageName.Contact,"admin"},
                 { PageName.Category,"admin"},
                 { PageName.About,"admin"},
+                { PageName.File,"admin"},
             };
         }
 

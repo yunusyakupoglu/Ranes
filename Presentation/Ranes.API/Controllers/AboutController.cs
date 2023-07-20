@@ -55,7 +55,7 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.Contact)]
+        [Auth(PageName.About)]
         [HttpPut]
         public async Task<IActionResult> Update(UpdateAboutCommandRequest updateAbout)
         {
@@ -63,7 +63,7 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.Contact)]
+        [Auth(PageName.About)]
         [HttpDelete]
         public async Task<IActionResult> Delete(DeleteAboutCommandRequest deleteAbout)
         {

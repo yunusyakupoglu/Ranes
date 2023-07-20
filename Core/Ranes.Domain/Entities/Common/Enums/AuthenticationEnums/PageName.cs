@@ -11,6 +11,7 @@ namespace Ranes.Domain.Entities.Common.Enums.AuthenticationEnums
         Building=1,
         Contact=2,
         Category=3,
-        About=4
+        About=4,
+        File=5
     }
 }

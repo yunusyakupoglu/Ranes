@@ -1,5 +1,6 @@
-﻿using Azure.Storage.Blobs;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 using Ranes.Application.Abstractions.Services.File;
 using Ranes.Application.DTOs.File;
 using System;
@@ -13,103 +14,76 @@ namespace Ranes.Infrastructure.Services.File
 {
     public class FileService : IFileService
     {
+        private readonly string _uploadDirectory;
 
-        public FileService()
+        public FileService(IWebHostEnvironment webHostEnvironment)
         {
+            _uploadDirectory = Path.Combine(webHostEnvironment.ContentRootPath, "uploads");
         }
 
-        public async Task<FileModel> Upload(FileModel model)
+        public async Task<int> DeleteFile(string fileName)
         {
-            List<IFormFile> files = new List<IFormFile>
-    {
-        model.ImgPrimary,
-        model.ImgOne,
-        model.ImgTwo,
-        model.ImgThree,
-        model.ImgFour,
-        model.ImgFive,
-        model.ImgSix,
-        model.ImgSeven,
-        model.ImgEight,
-        model.ImgNine,
-        model.ImgTen
-    };
+                string filePath = Path.Combine(_uploadDirectory, fileName);
 
-            List<string> uploadedFilePaths = new List<string>();
-
-            // Yüklenen dosyaların kaydedileceği klasörün yolu
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "uploads");
-
-            // Eğer "uploads" klasörü yoksa, oluşturulması
-            if (!Directory.Exists(uploadsFolder))
-            {
-                Directory.CreateDirectory(uploadsFolder);
-            }
-
-            for (int i = 0; i < files.Count; i++)
-            {
-                var file = files[i];
-                if (file != null && file.Length > 0)
+                if (!System.IO.File.Exists(filePath))
                 {
-                    // Dosya adı için GUID oluşturma
-                    var fileName = $"{Guid.NewGuid()}_{file.FileName}";
-
-                    // Dosyanın kaydedileceği tam yol
-                    var filePath = Path.Combine(uploadsFolder, fileName);
-
-                    // Dosyayı kopyalama
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
-
-                    // Yüklenen dosyanın tam yolunu listeye ekleme
-                    uploadedFilePaths.Add(filePath);
-
-                    // Dosya adını string property'ye ata
-                    switch (i)
-                    {
-                        case 0:
-                            model.ImgPrimaryPath = fileName;
-                            break;
-                        case 1:
-                            model.ImgOnePath = fileName;
-                            break;
-                        case 2:
-                            model.ImgTwoPath = fileName;
-                            break;
-                        case 3:
-                            model.ImgThreePath = fileName;
-                            break;
-                        case 4:
-                            model.ImgFourPath = fileName;
-                            break;
-                        case 5:
-                            model.ImgFivePath = fileName;
-                            break;
-                        case 6:
-                            model.ImgSixPath = fileName;
-                            break;
-                        case 7:
-                            model.ImgSevenPath = fileName;
-                            break;
-                        case 8:
-                            model.ImgEightPath = fileName;
-                            break;
-                        case 9:
-                            model.ImgNinePath = fileName;
-                            break;
-                        case 10:
-                            model.ImgTenPath = fileName;
-                            break;
-                        default:
-                            break;
-                    }
+                    return 0;
                 }
-            }
 
-            return model;
+                System.IO.File.Delete(filePath);
+
+                return 1;
         }
 
+        public async Task<string> UploadFile(IFormFile file)
+        {
+            if (file == null || file.Length <= 0)
+            {
+                throw new ArgumentException("Invalid file.");
+            }
+
+            if (!Directory.Exists(_uploadDirectory))
+            {
+                Directory.CreateDirectory(_uploadDirectory);
+            }
+
+            var fileName = Path.GetFileName(file.FileName);
+            var filePath = Path.Combine(_uploadDirectory, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return fileName;
+        }
+
+        public async Task<IEnumerable<string>> UploadFiles(IEnumerable<IFormFile> files)
+        {
+            List<string> fileNames = new List<string>();
+
+            if (!Directory.Exists(_uploadDirectory))
+            {
+                Directory.CreateDirectory(_uploadDirectory);
+            }
+
+            foreach (var file in files)
+            {
+                if (file.Length <= 0)
+                    continue;
+
+                var fileName = Path.GetFileName(file.FileName);
+                var filePath = Path.Combine(_uploadDirectory, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                fileNames.Add(fileName);
+            }
+
+            return fileNames;
+        }
     }
 }

@@ -29,24 +29,6 @@ namespace Ranes.Application.Features.Commands.Building.CreateBuilding
 
         public async Task<Response<CreateBuildingCommandResponse>> Handle(CreateBuildingCommandRequest request, CancellationToken cancellationToken)
         {
-            FileModel files = new FileModel
-            {
-                ImgPrimary = request.ImgPrimary,
-                ImgOne = request.ImgOne,
-                ImgTwo = request.ImgTwo,
-                ImgThree = request.ImgThree,
-                ImgFour = request.ImgFour,
-                ImgFive = request.ImgFive,
-                ImgSix = request.ImgSix,
-                ImgSeven = request.ImgSeven,
-                ImgEight = request.ImgEight,
-                ImgNine = request.ImgNine,
-                ImgTen = request.ImgTen
-            };
-
-
-            var fileNames = await _fileService.Upload(files);
-
             var addedBuilding = new Domain.Entities.Building
             {
                 Id = Guid.NewGuid(),
@@ -58,17 +40,6 @@ namespace Ranes.Application.Features.Commands.Building.CreateBuilding
                 m2 = request.m2,
                 Title = request.Title,
                 Description = request.Description,
-                ImgPrimary = fileNames.ImgPrimaryPath,
-                ImgOne = fileNames.ImgOnePath,
-                ImgTwo = fileNames.ImgTwoPath,
-                ImgThree = fileNames.ImgThreePath,
-                ImgFour = fileNames.ImgFourPath,
-                ImgFive = fileNames.ImgFivePath,
-                ImgSix = fileNames.ImgSixPath,
-                ImgSeven = fileNames.ImgSevenPath,
-                ImgEight = fileNames.ImgEightPath,
-                ImgNine = fileNames.ImgNinePath,
-                ImgTen = fileNames.ImgTenPath
             };
 
             await _writeRepository.AddAsync(addedBuilding);

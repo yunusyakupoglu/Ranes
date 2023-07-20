@@ -21,7 +21,8 @@ using Ranes.Persistance.Repositories.About;
 using Ranes.Application.Repositories.About;
 using Ranes.Application.Repositories.Contact;
 using Ranes.Persistance.Repositories.Contact;
-
+using Ranes.Persistance.Repositories.File;
+using Ranes.Application.Repositories.File;
 
 namespace Ranes.Persistence
 {
@@ -39,6 +40,8 @@ namespace Ranes.Persistence
             services.AddTransient<IAboutWriteRepository, AboutWriteRepository>();
             services.AddTransient<IContactReadRepository, ContactReadRepository>();
             services.AddTransient<IContactWriteRepository, ContactWriteRepository>();
+            services.AddTransient<IFileWriteRepository, FileWriteRepository>();
+            services.AddTransient<IFileReadRepository, FileReadRepository>();
 
 
             services.AddScoped<IUserService, UserService>();

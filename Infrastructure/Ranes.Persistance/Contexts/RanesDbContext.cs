@@ -25,6 +25,7 @@ namespace Ranes.Persistance.Contexts
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Domain.Entities.File> Files { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

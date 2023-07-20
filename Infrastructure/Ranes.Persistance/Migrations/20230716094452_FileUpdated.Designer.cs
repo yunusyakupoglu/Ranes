@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Ranes.Persistance.Contexts;
@@ -11,9 +12,11 @@ using Ranes.Persistance.Contexts;
 namespace Ranes.Persistance.Migrations
 {
     [DbContext(typeof(RanesDbContext))]
-    partial class RanesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230716094452_FileUpdated")]
+    partial class FileUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -320,14 +323,11 @@ namespace Ranes.Persistance.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("FileName")
+                    b.Property<byte[]>("Data")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("bytea");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsPrimary")
                         .HasColumnType("boolean");
 
                     b.Property<string>("UpdatedBy")

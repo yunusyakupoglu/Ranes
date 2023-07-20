@@ -56,13 +56,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors(builder =>
-{
-    builder.SetIsOriginAllowed(origin => true)
-           .WithMethods("GET")  // Sadece GET isteklerine izin ver
-           .AllowAnyHeader()
-           .AllowCredentials();
-});
+app.UseCors(x => x
+           .SetIsOriginAllowed(origin => true)
+           .AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader());
 
 app.UseStaticFiles(new StaticFileOptions
 {
