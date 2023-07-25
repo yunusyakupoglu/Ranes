@@ -14,7 +14,7 @@ namespace Ranes.Persistence
             get
             {
                 ConfigurationManager configurationManager = new();
-                configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../../Presentation/Ranes.API"));
+                configurationManager.SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "./"));
                 configurationManager.AddJsonFile("appsettings.json");
                 return configurationManager.GetConnectionString("PostgreSQL");
             }
