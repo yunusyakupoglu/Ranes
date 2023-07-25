@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Ranes.API.CustomAttributes;
 using Ranes.Application.Features.Commands.About.CreateAbout;
 using Ranes.Application.Features.Commands.About.DeleteAbout;
 using Ranes.Application.Features.Commands.About.UpdateAbout;
@@ -15,7 +14,6 @@ using Ranes.Application.Features.Queries.About.GetDeletedAbouts;
 using Ranes.Application.Features.Queries.File.GetFileById;
 using Ranes.Application.Features.Queries.File.GetFiles;
 using Ranes.Application.Features.Queries.File.GetFilesByBuildingId;
-using Ranes.Domain.Entities.Common.Enums.AuthenticationEnums;
 
 namespace Ranes.API.Controllers
 {
@@ -31,7 +29,6 @@ namespace Ranes.API.Controllers
             _mediator = mediator;
         }
 
-        [Auth(PageName.File)]
         [HttpGet("getall")]
         public async Task<IActionResult> GetList()
         {
@@ -39,7 +36,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.File)]
         [HttpGet("getallbybuildingid")]
         public async Task<IActionResult> GetListByBuildingId(Guid buildingId)
         {
@@ -47,7 +43,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.File)]
         [HttpGet("getbyid")]
         public async Task<IActionResult> GetById(Guid Id)
         {
@@ -55,7 +50,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.File)]
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] CreateFileCommandRequest createFile)
         {
@@ -63,7 +57,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.File)]
         [HttpPut]
         public async Task<IActionResult> Update([FromForm] UpdateFileCommandRequest updateFile)
         {
@@ -71,7 +64,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.File)]
         [HttpPut("updateprimaryfile")]
         public async Task<IActionResult> UpdatePrimaryFile(UpdatePrimaryFileCommandRequest updatePrimaryFile)
         {
@@ -79,7 +71,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.File)]
         [HttpDelete]
         public async Task<IActionResult> Delete(DeleteFileCommandRequest deleteFile)
         {

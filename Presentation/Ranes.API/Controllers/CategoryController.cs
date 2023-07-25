@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Ranes.API.CustomAttributes;
 using Ranes.Application.Features.Commands.Category.CreateCategory;
 using Ranes.Application.Features.Commands.Category.DeleteCategory;
 using Ranes.Application.Features.Commands.Category.UpdateCategory;
@@ -11,7 +10,6 @@ using Ranes.Application.Features.Commands.Contact.UpdateContact;
 using Ranes.Application.Features.Queries.Category.GetCategories;
 using Ranes.Application.Features.Queries.Category.GetCategoryById;
 using Ranes.Application.Features.Queries.Category.GetDeletedCategories;
-using Ranes.Domain.Entities.Common.Enums.AuthenticationEnums;
 
 namespace Ranes.API.Controllers
 {
@@ -27,7 +25,6 @@ namespace Ranes.API.Controllers
             _mediator = mediator;
         }
 
-        [Auth(PageName.Category)]
         [HttpGet("getall")]
         public async Task<IActionResult> GetList()
         {
@@ -35,7 +32,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.Category)]
         [HttpGet("getalldeleteds")]
         public async Task<IActionResult> GetDeletedList()
         {
@@ -43,7 +39,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.Category)]
         [HttpGet("getbyid")]
         public async Task<IActionResult> GetById(Guid Id)
         {
@@ -51,7 +46,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.Category)]
         [HttpPost]
         public async Task<IActionResult> Add(CreateCategoryCommandRequest createCategory)
         {
@@ -59,7 +53,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.Category)]
         [HttpPut]
         public async Task<IActionResult> Update(UpdateCategoryCommandRequest updateCategory)
         {
@@ -67,7 +60,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.Category)]
         [HttpDelete]
         public async Task<IActionResult> Delete(DeleteCategoryCommandRequest deleteCategory)
         {

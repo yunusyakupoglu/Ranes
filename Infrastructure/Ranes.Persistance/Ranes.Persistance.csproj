@@ -26,4 +26,8 @@
     <ProjectReference Include="..\..\Core\Ranes.Application\Ranes.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

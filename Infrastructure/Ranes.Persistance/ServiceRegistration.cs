@@ -1,5 +1,4 @@
-﻿using Ranes.Application.Abstractions.Services.Authentications;
-using Ranes.Application.Abstractions.Services;
+﻿using Ranes.Application.Abstractions.Services;
 using Ranes.Domain.Entities.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Ranes.Persistance.Contexts;
-using Ranes.Persistence.Services;
 using Ranes.Persistance.Repositories.Building;
 using Ranes.Application.Repositories.Building;
 using Ranes.Application.Repositories.Category;
@@ -42,13 +40,6 @@ namespace Ranes.Persistence
             services.AddTransient<IContactWriteRepository, ContactWriteRepository>();
             services.AddTransient<IFileWriteRepository, FileWriteRepository>();
             services.AddTransient<IFileReadRepository, FileReadRepository>();
-
-
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IExternalAuthentication, AuthService>();
-            services.AddScoped<IInternalAuthentication, AuthService>();
-            services.AddScoped<IRoleService, RoleService>();
 
             services.AddIdentity<AppUser, AppRole>(options =>
             {

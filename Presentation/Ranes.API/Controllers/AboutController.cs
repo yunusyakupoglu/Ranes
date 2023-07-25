@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Ranes.API.CustomAttributes;
 using Ranes.Application.Features.Commands.About.CreateAbout;
 using Ranes.Application.Features.Commands.About.DeleteAbout;
 using Ranes.Application.Features.Commands.About.UpdateAbout;
@@ -23,7 +22,6 @@ namespace Ranes.API.Controllers
             _mediator = mediator;
         }
 
-        [Auth(PageName.About)]
         [HttpGet("getall")]
         public async Task<IActionResult> GetList()
         {
@@ -31,7 +29,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.About)]
         [HttpGet("getalldeleteds")]
         public async Task<IActionResult> GetDeletedList()
         {
@@ -39,7 +36,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.About)]
         [HttpGet("getbyid")]
         public async Task<IActionResult> GetById(Guid Id)
         {
@@ -47,7 +43,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.About)]
         [HttpPost]
         public async Task<IActionResult> Add(CreateAboutCommandRequest createAbout)
         {
@@ -55,7 +50,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.About)]
         [HttpPut]
         public async Task<IActionResult> Update(UpdateAboutCommandRequest updateAbout)
         {
@@ -63,7 +57,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.About)]
         [HttpDelete]
         public async Task<IActionResult> Delete(DeleteAboutCommandRequest deleteAbout)
         {

@@ -1,14 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Ranes.API.CustomAttributes;
 using Ranes.Application.Features.Commands.Contact.CreateContact;
 using Ranes.Application.Features.Commands.Contact.DeleteContact;
 using Ranes.Application.Features.Commands.Contact.UpdateContact;
 using Ranes.Application.Features.Queries.Contact.GetContactById;
 using Ranes.Application.Features.Queries.Contact.GetContacts;
 using Ranes.Application.Features.Queries.Contact.GetDeletedContacts;
-using Ranes.Domain.Entities.Common.Enums.AuthenticationEnums;
 
 namespace Ranes.API.Controllers
 {
@@ -24,7 +22,6 @@ namespace Ranes.API.Controllers
             _mediator = mediator;
         }
 
-        [Auth(PageName.Contact)]
         [HttpGet("getall")]
         public async Task<IActionResult> GetList()
         {
@@ -32,7 +29,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.Contact)]
         [HttpGet("getalldeleteds")]
         public async Task<IActionResult> GetDeletedList()
         {
@@ -40,7 +36,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.Contact)]
         [HttpGet("getbyid")]
         public async Task<IActionResult> GetById(Guid Id)
         {
@@ -48,7 +43,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.Contact)]
         [HttpPost]
         public async Task<IActionResult> Add(CreateContactCommandRequest createContact)
         {
@@ -56,7 +50,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.Contact)]
         [HttpPut]
         public async Task<IActionResult> Update(UpdateContactCommandRequest updateContact)
         {
@@ -64,7 +57,6 @@ namespace Ranes.API.Controllers
             return CreateActionResultInstance(result);
         }
 
-        [Auth(PageName.Contact)]
         [HttpDelete]
         public async Task<IActionResult> Delete(DeleteContactCommandRequest deleteContact)
         {
